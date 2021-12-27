@@ -75,8 +75,15 @@ app.get("/api/users/auth", auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
     email: req.user.email,
-    password: req.user.password
-  })
+    password: req.user.password,
+  });
+});
+
+app.get("/api/users/logout", auth, (req, res) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send(res.json({ success: true }));
+  });
 });
 
 app.listen(port, () => {
