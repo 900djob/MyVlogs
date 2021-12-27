@@ -4,7 +4,8 @@
   "description": "react and node basic",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "node": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "seok",
@@ -12,5 +13,8 @@
   "dependencies": {
     "express": "^4.17.2",
     "mongoose": "^6.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
