@@ -4,8 +4,6 @@ const port = 3000;
 const cookieParser = require("cookie-parser");
 require('dotenv').config();
 
-const config = require("./config/key");
-
 const { auth } = require("./middleware/auth");
 const { User } = require("./models/User");
 
