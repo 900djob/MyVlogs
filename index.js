@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
 const config = require("./config/key");
 
@@ -21,7 +22,7 @@ app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(config.mongoURI)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
