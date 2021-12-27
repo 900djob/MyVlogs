@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const config = require("./config/key");
 
+const { auth } = require("./middleware/auth");
 const { User } = require("./models/User");
 
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +29,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   //회원가입할 때 필요한 정보들을 client에서 가져오면
   //그것들을 데이터베이스에 넣어준다.
 
@@ -40,7 +41,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
+app.post("/api/users/login", (req, res) => {
   //요청된 email을 데이터베이스에서 찾는다.
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
@@ -67,6 +68,15 @@ app.post("/login", (req, res) => {
       });
     });
   });
+});
+
+app.get("/api/users/auth", auth, (req, res) => {
+  //auth 미들웨어를 통과해서 여기까지 왔으면 authentication이 통과했다는 말.
+  res.status(200).json({
+    _id: req.user._id,
+    email: req.user.email,
+    password: req.user.password
+  })
 });
 
 app.listen(port, () => {
