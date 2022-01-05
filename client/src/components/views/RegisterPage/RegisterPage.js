@@ -43,9 +43,9 @@ const RegisterPage = () => {
 
     dispatch(registerUser(body)).then((res) => {
       if (res.payload.success) {
-        navigate("/");
+        navigate("/login");
       } else {
-        alert("Error");
+        alert("Faild to sign up");
       }
     });
   };
