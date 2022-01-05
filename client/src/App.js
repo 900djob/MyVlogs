@@ -5,6 +5,8 @@ import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 
 const App = () => {
+
+
   return (
     <BrowserRouter>
       <Routes>

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 5000;
 const cookieParser = require("cookie-parser");
-require('dotenv').config();
+require("dotenv").config();
 
 const { auth } = require("./middleware/auth");
 const { User } = require("./models/User");
@@ -29,8 +29,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/hello", (req, res) => {
-  res.send('Hello React!')
-})
+  res.send("Hello React!");
+});
 
 app.post("/api/users/register", (req, res) => {
   //회원가입할 때 필요한 정보들을 client에서 가져오면
@@ -77,8 +77,13 @@ app.get("/api/users/auth", auth, (req, res) => {
   //auth 미들웨어를 통과해서 여기까지 왔으면 authentication이 통과했다는 말.
   res.status(200).json({
     _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
     email: req.user.email,
-    password: req.user.password,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image,
   });
 });
 
