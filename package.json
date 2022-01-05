@@ -4,7 +4,7 @@
   "description": "react and node basic",
   "main": "index.js",
   "scripts": {
-    "node": "node index.js",
+    "node": "node server/index.js",
     "back": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run back\" \"npm run start --prefix client\""
