@@ -6,7 +6,6 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 
 const App = () => {
 
-
   return (
     <BrowserRouter>
       <Routes>
