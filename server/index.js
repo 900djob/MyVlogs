@@ -6,9 +6,6 @@ const cors = require('cors')
 
 require("dotenv").config();
 
-const { auth } = require("./middleware/auth");
-const { User } = require("./models/User");
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 /*
