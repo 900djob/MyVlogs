@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./NewNavbar.module.css";
-import LoggedInUser from "../LoggedInUser";
+import LoggedInUser from "../LoggedInUser/LoggedInUser";
 
 const NewNavbar = () => {
   const navigate = useNavigate();
