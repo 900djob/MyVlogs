@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MenuItems from "./Sections/RightMenu";
+import MenuItems from "./RightMenu";
 // import { Drawer, Button } from "antd";
 // import { AlignRightOutlined } from "@ant-design/icons";
 import "./Sections/Navbar.css";

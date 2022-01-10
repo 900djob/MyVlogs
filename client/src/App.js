@@ -3,17 +3,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/views/LandingPage/LandingPage";
 import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
-import NavBar from "./components/views/NavBar/NavBar";
+import NewNavbar from "./components/views/NavBar/NewNavbar";
+import PostPage from "./components/views/PostPage/PostPage";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-      <NavBar />
+        <NewNavbar />
         <Routes>
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/register" element={<RegisterPage />} />
+          <Route exact path="/post" element={<PostPage />} />
         </Routes>
       </BrowserRouter>
     </>
