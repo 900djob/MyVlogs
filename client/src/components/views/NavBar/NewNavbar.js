@@ -56,4 +56,4 @@ const NewNavbar = () => {
   );
 };
 
-export default Auth(NewNavbar, null);
+export default NewNavbar;

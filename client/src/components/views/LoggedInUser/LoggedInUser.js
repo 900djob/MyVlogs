@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styles from "./LoggedInUser.module.css";
-import Auth from "../../../hoc/auth"
 import { logoutUser } from "../../../_actions/user_actions";
+import Auth from "../../../hoc/auth"
 
 const LoggedInUser = () => {
   const dispatch = useDispatch();
@@ -28,4 +28,4 @@ const LoggedInUser = () => {
   );
 };
 
-export default Auth(LoggedInUser, true);
+export default LoggedInUser;
