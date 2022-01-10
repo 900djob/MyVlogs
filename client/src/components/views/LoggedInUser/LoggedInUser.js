@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styles from "./LoggedInUser.module.css";
 import { logoutUser } from "../../../_actions/user_actions";
-import Auth from "../../../hoc/auth"
 
 const LoggedInUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
     dispatch(logoutUser()).then((res) => {
       if (res.payload.success) {
         navigate("/login");

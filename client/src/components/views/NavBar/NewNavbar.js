@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./NewNavbar.module.css";
 import LoggedInUser from "../LoggedInUser/LoggedInUser";
-import Auth from "../../../hoc/auth"
 
 const NewNavbar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
 
-  const handlePost = () => {
+  const handlePost = (e) => {
     if (!user.userData.isAuth) {
       navigate("/login");
     } else {
@@ -18,7 +17,7 @@ const NewNavbar = () => {
     }
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = (e) => {
     navigate("/login");
   };
 
