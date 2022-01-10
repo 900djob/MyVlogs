@@ -54,5 +54,10 @@ button {
     .login {
       margin-right: 0;
     }
+    .logout {
+        margin-right: 2rem;
+        font-weight: 600;
+        font-size: 1.125rem;
+    }
   }
   

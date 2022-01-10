@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./NewNavbar.module.css";
 import LoggedInUser from "../LoggedInUser/LoggedInUser";
+import Auth from "../../../hoc/auth"
 
 const NewNavbar = () => {
   const navigate = useNavigate();
@@ -10,7 +11,11 @@ const NewNavbar = () => {
   const user = useSelector((state) => state.user);
 
   const handlePost = () => {
-      navigate("/post")
+    if (!user.userData.isAuth) {
+      navigate("/login");
+    } else {
+      navigate("/post");
+    }
   };
 
   const handleSignIn = () => {
@@ -51,4 +56,4 @@ const NewNavbar = () => {
   );
 };
 
-export default NewNavbar;
+export default Auth(NewNavbar, null);

@@ -18,7 +18,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         //로그인 하지 않은 상태
         if (!res.payload.isAuth) {
           if (option) {
-            navigate("/login");
+            navigate("/");
           }
         } else {
           //로그인 한 상태
