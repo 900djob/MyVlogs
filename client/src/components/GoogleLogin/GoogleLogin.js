@@ -2,7 +2,7 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { googleLogin, loginUser } from "../../_actions/user_actions";
+import { googleLogin } from "../../_actions/user_actions";
 import Auth from "../../hoc/auth";
 
 

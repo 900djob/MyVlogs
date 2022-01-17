@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../../hoc/auth";
 import GoogleLogin from "../../GoogleLogin/GoogleLogin";
+import KakaoLogin from "../../KakaoLogin/KakaoLogin"
 
 const { Title } = Typography;
 
@@ -173,9 +174,8 @@ const LoginPage = (props) => {
                 </div>
                 Or <a href="/register">회원가입!</a>
               </Form.Item>
-              <div>
                 <GoogleLogin />
-              </div>
+              {/* <KakaoLogin /> */}
             </form>
           </div>
         );
