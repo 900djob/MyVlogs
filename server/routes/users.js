@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
+const { OAuth2Client } = require("google-auth-library");
+
+require("dotenv").config();
 
 router.get("/auth", auth, (req, res) => {
   //auth 미들웨어를 통과해서 여기까지 왔으면 authentication이 통과했다는 말.
@@ -56,6 +59,51 @@ router.post("/login", (req, res) => {
       });
     });
   });
+});
+
+const client = new OAuth2Client(process.env.CLIENT_ID);
+
+router.post("/googlelogin", (req, res) => {
+  const { tokenId } = req.body;
+
+  client
+    .verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.CLIENT_ID,
+    })
+    .then((response) => {
+      const { email_verified, name, email } = response.payload;
+      if (email_verified) {
+        User.findOne({ email }, (err, user) => {
+          if (err) {
+            return res.json({
+              googleOnSucces: false,
+              message: "이메일이 유효하지 않습니다.",
+            });
+          } else {
+            if (user) {
+              user.generateToken((err, user) => {
+                if (err) {
+                  return res.send(err);
+                }
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ googleOnSucces: true, userId: user._id });
+              });
+            } else {
+              let password = email + process.env.CLIENT_ID;
+              let newUser = new User({ name, email, password });
+
+              newUser.save((err, userInfo) => {
+                if (err) return res.json({ success: false, err });
+                return res.json({ success: true });
+              });
+            }
+          }
+        });
+      }
+    });
 });
 
 router.get("/logout", auth, (req, res) => {

@@ -1,5 +1,6 @@
 import {
   LOGIN_USER,
+  GOOGLE_LOGIN,
   REGISTER_USER,
   AUTH_USER,
   LOGOUT_USER,
@@ -11,6 +12,8 @@ export default function (state = {}, action) {
       return { ...state, register: action.payload };
     case LOGIN_USER:
       return { ...state, loginSucces: action.payload };
+      case GOOGLE_LOGIN:
+        return { ...state, googleOnSucces: action.payload };
     case AUTH_USER:
       return { ...state, userData: action.payload };
     case LOGOUT_USER:

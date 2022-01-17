@@ -1,5 +1,11 @@
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, LOGOUT_USER, AUTH_USER } from "./types";
+import {
+  LOGIN_USER,
+  GOOGLE_LOGIN,
+  REGISTER_USER,
+  LOGOUT_USER,
+  AUTH_USER,
+} from "./types";
 import { USER_SERVER } from "../Config";
 
 export function loginUser(dataToSubmit) {
@@ -9,6 +15,17 @@ export function loginUser(dataToSubmit) {
 
   return {
     type: LOGIN_USER,
+    payload: request,
+  };
+}
+
+export function googleLogin(dataToSubmit) {
+  const request = axios
+    .post(`${USER_SERVER}/googlelogin`, dataToSubmit)
+    .then((res) => res.data);
+
+  return {
+    type: GOOGLE_LOGIN,
     payload: request,
   };
 }
