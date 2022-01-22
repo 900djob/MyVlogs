@@ -10,7 +10,7 @@ const Google_Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const ClientID = "442492822133-jj93gi9ogm9l9797ogvs2sq28v64d77q.apps.googleusercontent.com";
+  const clientID = process.env.REACT_APP_CLIENT_ID;
 
   const googleOnSuccess = async (res) => {
     let body = {
@@ -32,8 +32,8 @@ const Google_Login = () => {
   return (
     <>
       <GoogleLogin
-        clientId={ClientID}
-        buttonText="Google Login"
+        clientId={clientID}
+        buttonText="Google login"
         onSuccess={googleOnSuccess}
         onFailure={googleOnFailure}
         cookiePolicy={"single_host_origin"}
