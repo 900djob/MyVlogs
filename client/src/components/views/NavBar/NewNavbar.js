@@ -25,7 +25,7 @@ const NewNavbar = () => {
     <>
       <nav
         className={styles.navbar}
-        style={{ position: "fixed", zIndex: 5, width: "100%" }}
+        style={{zIndex: 5, width: "100%" }}
       >
         <div className={styles.logo}>
           <a href="/">Logo</a>

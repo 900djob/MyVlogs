@@ -10,7 +10,7 @@ const Google_Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const clientID = process.env.REACT_APP_CLIENT_ID;
+  const ClientID = "442492822133-jj93gi9ogm9l9797ogvs2sq28v64d77q.apps.googleusercontent.com";
 
   const googleOnSuccess = async (res) => {
     let body = {
@@ -32,7 +32,7 @@ const Google_Login = () => {
   return (
     <>
       <GoogleLogin
-        clientId={clientID}
+        clientId={ClientID}
         buttonText="Google login"
         onSuccess={googleOnSuccess}
         onFailure={googleOnFailure}
