@@ -4,6 +4,7 @@ import styles from "./PostPage.module.css";
 import Auth from "../../../hoc/auth";
 import { Typography, Button, Form, message, Input } from "antd";
 import Dropzone from "react-dropzone";
+import axios from "axios";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -25,6 +26,9 @@ const PostPage = () => {
   const [Description, setDescription] = useState("");
   const [Private, setPrivate] = useState(0);
   const [Category, setCategory] = useState("film & animation");
+  const [FilePath, setFilePath] = useState("");
+  const [Duration, setDuration] = useState("");
+  const [ThumbnailPath, setThumbnailPath] = useState("");
 
   const onTitleChange = (e) => {
     setVideoTitle(e.target.value);
@@ -42,6 +46,36 @@ const PostPage = () => {
     setCategory(e.target.value);
   };
 
+  const onDrop = (files) => {
+    let formData = new FormData();
+    const config = {
+      header: { "content-type": "multipart/form-data" },
+    };
+    formData.append("file", files[0]);
+
+    axios.post("/api/videos/uploadfiles", formData, config).then((res) => {
+      if (res.data.success) {
+
+        let variable = {
+          filePath: res.data.filePath,
+          fileName: res.data.fileName,
+        };
+        setFilePath(res.data.filePath)
+
+        axios.post("api/videos/thumbnails", variable).then((res) => {
+          if (res.data.success) {
+            setDuration(res.data.fileDuration)
+            setThumbnailPath(res.data.thumbsFilePath)
+          } else {
+            alert("썸네일 생성에 실패했습니다.");
+          }
+        });
+      } else {
+        alert("업로드에 실패헸습니다.");
+      }
+    });
+  };
+
   return (
     <>
       <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
@@ -51,7 +85,7 @@ const PostPage = () => {
         <form onSubmit>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             {/* drop zone */}
-            <Dropzone onDrop mutiple maxSize>
+            <Dropzone onDrop={onDrop} mutiple={false} maxSize={800000000}>
               {({ getRootProps, getInputProps }) => (
                 <div
                   style={{
@@ -73,9 +107,14 @@ const PostPage = () => {
             </Dropzone>
 
             {/* thumbnail */}
-            <div>
-              <img src alt />
-            </div>
+            {ThumbnailPath && (
+              <div>
+                <img
+                  src={`http://localhost:5000/${ThumbnailPath}`}
+                  alt="thumbnail"
+                />
+              </div>
+            )}
           </div>
           <br />
           <br />
@@ -87,16 +126,33 @@ const PostPage = () => {
           <TextArea onChange={onDescriptionChange} value={Description} />
           <br />
           <br />
-          <select style={{width: "20%", height:"2rem"}} onChange={onPrivateChange}>
+          <label>Visibility :</label>
+          <select
+            style={{
+              width: "20%",
+              height: "2rem",
+              marginLeft: "1rem",
+              marginRight: "2rem",
+            }}
+            onChange={onPrivateChange}
+          >
             {PrivateOptions.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.label}
               </option>
             ))}
           </select>
-          <br />
-          <br />
-          <select style={{width: "20%", height:"2rem"}} onChange={onCategoryChange}>
+
+          <label>Genre :</label>
+          <select
+            style={{
+              width: "20%",
+              height: "2rem",
+              marginLeft: "1rem",
+              marginRight: "2rem",
+            }}
+            onChange={onCategoryChange}
+          >
             {CategoryOptions.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.label}

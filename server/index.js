@@ -29,6 +29,8 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api/users', require('./routes/users'));
+app.use('/api/videos', require('./routes/videos'));
+app.use('/uploads', express.static('uploads'));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
