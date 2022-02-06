@@ -12,7 +12,7 @@ const LandingPage = () => {
   const [Video, setVideo] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/videos/getVides").then((res) => {
+    axios.get("/api/videos/getVideos").then((res) => {
       if (res.data.success) {
         console.log(res.data);
         setVideo(res.data.videos);
@@ -74,7 +74,7 @@ const LandingPage = () => {
   return (
     <>
       <div style={{ width: "85%", margin: "3rem auto" }}>
-        <Title level={2}>Recommend</Title>
+        <Title level={2}>Uploaded Videos</Title>
         <hr />
         <Row gutter={[32, 16]}>{renderCards}</Row>
       </div>

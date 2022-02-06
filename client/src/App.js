@@ -5,6 +5,7 @@ import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import NewNavbar from "./components/views/NavBar/NewNavbar";
 import PostPage from "./components/views/PostPage/PostPage";
+import VideoDetail from "./components/views/VideoDetail/VideoDetail";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/register" element={<RegisterPage />} />
           <Route exact path="/post" element={<PostPage />} />
+          <Route exact path="/video/:videoId" element={<VideoDetail />} />
         </Routes>
       </BrowserRouter>
     </>
