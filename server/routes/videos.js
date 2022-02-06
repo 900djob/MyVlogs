@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Video } = require("../models/Video");
-const { auth } = require("../middleware/auth");
 const path = require("path");
 const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
@@ -84,11 +83,11 @@ router.post("/uploadVideo", (req, res) => {
 router.get("/getVideos", (req, res) => {
   //db에서 비디오를 가져와서 클라이언트에 보낸다.
   Video.find()
-    .populate('writer')
+    .populate("writer")
     .exec((err, videos) => {
-      if(err) return res.status(400).send(err)
+      if (err) return res.status(400).send(err);
       return res.status(200).json({ success: true, videos });
-    })
+    });
 });
 
 router.post("/getVideoDetail", (req, res) => {

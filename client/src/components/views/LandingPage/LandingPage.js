@@ -14,7 +14,6 @@ const LandingPage = () => {
   useEffect(() => {
     axios.get("/api/videos/getVideos").then((res) => {
       if (res.data.success) {
-        console.log(res.data);
         setVideo(res.data.videos);
       } else {
         alert("비디오를 불러올 수 없습니다.");

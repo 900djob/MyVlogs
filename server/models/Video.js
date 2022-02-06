@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const { User } = require("./User");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const videoSchema = mongoose.Schema(
   {
     writer: {
-      type: schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: User,
     },
     title: {

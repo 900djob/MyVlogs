@@ -5,9 +5,9 @@ const SideVideos = () => {
   const [SideVideos, setSideVideos] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/videos/getVideos").then((res) => {
+    axios.get("/api/videos/getVideos")
+    .then((res) => {
       if (res.data.success) {
-        console.log(res.data);
         setSideVideos(res.data.videos);
       } else {
         alert("비디오를 불러올 수 없습니다.");
@@ -19,8 +19,6 @@ const SideVideos = () => {
 
     var minutes = Math.floor(video.duration / 60);
     var seconds = Math.floor(video.duration - minutes * 60);
-
-    console.log(video)
     
     return (
       <div key={index}
@@ -32,7 +30,7 @@ const SideVideos = () => {
         }}
       >
         <div style={{ width: "40%", marginRight: "1rem" }}>
-          <a href>
+          <a href={`/video/${video._id}`}>
             <img
               style={{ width: "100%", height: "100%" }}
               src={`http://localhost:5000/${video.thumbnail}`}
@@ -41,7 +39,7 @@ const SideVideos = () => {
           </a>
         </div>
         <div style={{ width: "50%"}}>
-          <a href style={{color: "grey"}}>
+          <a href={`/video/${video._id}`} style={{color: "grey"}}>
             <span style={{ fontSize: "1rem", color: "black" }}>
               {video.title}
             </span>
