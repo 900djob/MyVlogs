@@ -5,11 +5,13 @@ import Auth from "../../../hoc/auth";
 import { Typography, Button, Form, message, Input } from "antd";
 import Dropzone from "react-dropzone";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const PrivateOptions = [
+const PrivacyOptions = [
   { value: 0, label: "Private" },
   { value: 1, label: "Public" },
 ];
@@ -22,6 +24,9 @@ const CategoryOptions = [
 ];
 
 const PostPage = () => {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const [VideoTitle, setVideoTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [Private, setPrivate] = useState(0);
@@ -55,17 +60,16 @@ const PostPage = () => {
 
     axios.post("/api/videos/uploadfiles", formData, config).then((res) => {
       if (res.data.success) {
-
         let variable = {
           filePath: res.data.filePath,
           fileName: res.data.fileName,
         };
-        setFilePath(res.data.filePath)
+        setFilePath(res.data.filePath);
 
         axios.post("api/videos/thumbnails", variable).then((res) => {
           if (res.data.success) {
-            setDuration(res.data.fileDuration)
-            setThumbnailPath(res.data.thumbsFilePath)
+            setDuration(res.data.fileDuration);
+            setThumbnailPath(res.data.thumbsFilePath);
           } else {
             alert("썸네일 생성에 실패했습니다.");
           }
@@ -76,13 +80,39 @@ const PostPage = () => {
     });
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const variable = {
+      writer: user.userData._id,
+      title: VideoTitle,
+      description: Description,
+      filePath: FilePath,
+      privacy: Private,
+      category: Category,
+      duration: Duration,
+      thumbnail: ThumbnailPath,
+    };
+
+    axios.post("/api/videos/uploadVideo", variable).then((res) => {
+      if (res.data.success) {
+        message.success("업로드에 성공했습니다.");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        alert("비디오 업로드에 실패했습니다.");
+      }
+    });
+  };
+
   return (
     <>
       <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <Title level={2}> Upload Video</Title>
         </div>
-        <form onSubmit>
+        <form onSubmit={onSubmit}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             {/* drop zone */}
             <Dropzone onDrop={onDrop} mutiple={false} maxSize={800000000}>
@@ -136,7 +166,7 @@ const PostPage = () => {
             }}
             onChange={onPrivateChange}
           >
-            {PrivateOptions.map((item, index) => (
+            {PrivacyOptions.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.label}
               </option>
@@ -161,7 +191,7 @@ const PostPage = () => {
           </select>
           <br />
           <br />
-          <Button type="primary" size="large" onClick>
+          <Button type="primary" size="large" onClick={onSubmit}>
             Submit
           </Button>
         </form>
