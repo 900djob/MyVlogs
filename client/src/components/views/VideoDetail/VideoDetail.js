@@ -4,6 +4,7 @@ import { Row, Col, List } from "antd";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Avatar from "antd/lib/avatar/avatar";
+import SideVideos from "./Sections/SideVideos";
 
 const VideoDetail = () => {
   const videoId = useParams().videoId;
@@ -38,7 +39,7 @@ const VideoDetail = () => {
           </div>
         </Col>
         <Col lg={6} xs={24}>
-          Side Videos
+          <SideVideos />
         </Col>
       </Row>
     </>
