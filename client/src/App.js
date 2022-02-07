@@ -6,6 +6,7 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import NewNavbar from "./components/views/NavBar/NewNavbar";
 import PostPage from "./components/views/PostPage/PostPage";
 import VideoDetail from "./components/views/VideoDetail/VideoDetail";
+import SubscribedPage from "./components/views/SubscribedPage/SubscribedPage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route exact path="/register" element={<RegisterPage />} />
           <Route exact path="/post" element={<PostPage />} />
           <Route exact path="/video/:videoId" element={<VideoDetail />} />
+          <Route exact path="/subscribed" element={<SubscribedPage />} />
         </Routes>
       </BrowserRouter>
     </>

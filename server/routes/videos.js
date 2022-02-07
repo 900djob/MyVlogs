@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Video } = require("../models/Video");
+const { Subscriber } = require("../models/Subscriber")
 const path = require("path");
 const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
@@ -98,7 +99,26 @@ router.post("/getVideoDetail", (req, res) => {
       if(err) return res.status(400).send(err)
       return res.status(200).json({ success: true, videoDetail });
     })
+});
 
+router.post("/getSubscribedVideos", (req, res) => {
+  //구독한 비디오를 클라이언트로 보낸다.
+  //1. 자신의 id로 구독한 사람을 찾는다.
+  Subscriber.find({userFrom: req.body.userFrom})
+    .exec((err, subscribeInfo) => {
+      if(err) return res.status(400).send(err);
+      let subscribedUser = [];
+      subscribeInfo.map((subscriber, index) => {
+        subscribedUser.push(subscriber.userTo);
+      })
+  //2. 찾은 id에 해당되는 비디오들을 가지고 온다.
+  Video.find({ writer: { $in: subscribedUser } })
+      .populate("writer")
+      .exec((err, videos) => {
+        if(err) return res.status(400).send(err);
+        return res.status(200).json({ success: true, videos });
+      })
+    })
 });
 
 module.exports = router;

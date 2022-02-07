@@ -21,6 +21,11 @@ const NewNavbar = () => {
     navigate("/login");
   };
 
+  const handleSubscribed = () => {
+    navigate("/subscribed");
+
+  }
+
   return (
     <>
       <nav
@@ -28,7 +33,7 @@ const NewNavbar = () => {
         style={{zIndex: 5, width: "100%" }}
       >
         <div className={styles.logo}>
-          <a href="/">Logo</a>
+          <a href="/">MyVlog</a>
         </div>
         <div className={styles.navbarElementWrapper}>
           <button
@@ -37,6 +42,13 @@ const NewNavbar = () => {
             onClick={handlePost}
           >
             글쓰기
+          </button>
+          <button
+            type="button"
+            className={styles.postRegister}
+            onClick={handleSubscribed}
+          >
+            구독
           </button>
           {user.userData && !user.userData.isAuth ? (
             <button

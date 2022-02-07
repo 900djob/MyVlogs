@@ -18,6 +18,7 @@ const VideoDetail = () => {
     axios.post("/api/videos/getVideoDetail", variable).then((res) => {
       if (res.data.success) {
         setVideoDetail(res.data.videoDetail);
+        console.log(res.data.videoDetail)
       } else {
         alert("비디오를 불러올 수 없습니다.");
       }
