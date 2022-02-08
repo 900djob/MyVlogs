@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Subscriber } = require("../models/Subscriber");
-const { Video } = require("../models/Video");
-
-require("dotenv").config();
 
 router.post("/subscribeNumber", (req, res) => {
   Subscriber.find({ userTo: req.body.userTo }).exec((err, subscribers) => {
