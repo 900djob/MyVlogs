@@ -8,10 +8,11 @@ import SideVideos from "./Sections/SideVideos";
 import Subscribe from "./Sections/Subscribe";
 import Comment from "./Sections/Comment";
 import { useSelector } from "react-redux";
+import LikeDislike from "./Sections/LikeDislike";
 
 const VideoDetail = () => {
   const videoId = useParams().videoId;
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
 
   const [VideoDetail, setVideoDetail] = useState([]);
   const [Comments, setComments] = useState([]);
@@ -29,7 +30,7 @@ const VideoDetail = () => {
 
     axios.post("/api/comment/getComments", variable).then((res) => {
       if (res.data.success) {
-        setComments(res.data.comments)
+        setComments(res.data.comments);
       } else {
         alert("댓글을 불러올 수 없습니다.");
       }
@@ -38,16 +39,13 @@ const VideoDetail = () => {
 
   if (VideoDetail.writer) {
     var subscribeBtn = VideoDetail.writer._id !== user.userData._id && (
-      <Subscribe
-        userTo={VideoDetail.writer._id}
-        userFrom={user.userData._id}
-      />
+      <Subscribe userTo={VideoDetail.writer._id} userFrom={user.userData._id} />
     );
   }
 
   const refreshFunction = (newComment) => {
-    setComments(Comments.concat(newComment))
-  }
+    setComments(Comments.concat(newComment));
+  };
 
   return (
     <>
@@ -61,7 +59,16 @@ const VideoDetail = () => {
                   src={`http://localhost:5000/${VideoDetail.filePath}`}
                   controls
                 />
-                <List.Item actions={[subscribeBtn]}>
+                <List.Item
+                  actions={[
+                    <LikeDislike
+                      video
+                      userId={user.userData._id}
+                      videoId={videoId}
+                    />,
+                    subscribeBtn,
+                  ]}
+                >
                   <List.Item.Meta
                     avatar={
                       <Avatar
@@ -72,7 +79,11 @@ const VideoDetail = () => {
                     description={VideoDetail.description}
                   />
                 </List.Item>
-                <Comment refreshFunction={refreshFunction} commentList={Comments} postId={videoId} />
+                <Comment
+                  refreshFunction={refreshFunction}
+                  commentList={Comments}
+                  postId={videoId}
+                />
               </div>
             </div>
           </Col>
