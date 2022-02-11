@@ -50,19 +50,32 @@ const LikeDislike = (props) => {
   }, []);
 
   const onLike = () => {
-    if (LikeAction === null) {
+    /*
+      ㅇ 좋아요를 하지 않았을 경우
+        - 좋아요를 +1 하고
+        - 좋아요 상태를 liked로 한다.
+
+      이때, 싫어요 버튼을 누른 상태라면(싫어요가 1인 상태)
+        - 싫어요를 없애고
+        - 싫어요를 -1 한다.
+
+      ㅇ 좋아요를 한 경우(좋아요가 1인 상태)
+        - 좋아요상태를 null로 하고
+        - 좋아요를 -1 한다.
+     */
+    if (LikeAction !== "liked") {
       axios.post("/api/like/upLike", variable).then((res) => {
         if (res.data.success) {
           setLikes(Likes + 1);
           setLikeAction("liked");
-          if (setDislikeAction !== null) {
+          if (DislikeAction === "disliked") {
             setDislikeAction(null);
             setDislikes(Dislikes - 1);
           }
         } else {
           alert("좋아요를 할 수 없습니다.");
         }
-      });
+      })
     } else {
       axios.post("/api/like/unLike", variable).then((res) => {
         if (res.data.success) {
@@ -74,9 +87,21 @@ const LikeDislike = (props) => {
       });
     }
   };
+    /*
+      ㅇ 싫어요를 한 경우(싫어요가 1인 상태)
+        - 싫어요를 -1 하고
+        - 싫어요 상태를 null로 한다.
+      
+      ㅇ 싫어요를 하지 않은 경우
+        - 싫어요를 +1 하고
+        - 싫어요 상태를 dislike로 한다.
 
+      이때, 좋아요를 한 경우(좋아요가 1인 상태)
+        - 좋아요를 null로 하고
+        - 좋아요를 -1 한다.
+    */
   const onDislike = () => {
-    if (DislikeAction === null) {
+    if (DislikeAction === "disliked") {
       axios.post("/api/like/unDislike", variable).then((res) => {
         if (res.data.success) {
           setDislikes(Dislikes - 1);
@@ -90,7 +115,7 @@ const LikeDislike = (props) => {
         if (res.data.success) {
           setDislikes(Dislikes + 1);
           setDislikeAction("disliked");
-          if (LikeAction !== null) {
+          if (LikeAction === "liked") {
             setLikeAction(null);
             setLikes(Likes - 1);
           }
