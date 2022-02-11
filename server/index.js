@@ -32,6 +32,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/videos', require('./routes/videos'));
 app.use('/api/subscribe', require('./routes/subscribers'));
 app.use('/api/comment', require('./routes/comments'));
+app.use('/api/like', require('./routes/likes'));
 
 app.use('/uploads', express.static('uploads'));
 
