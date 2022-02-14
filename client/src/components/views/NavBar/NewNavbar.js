@@ -22,9 +22,12 @@ const NewNavbar = () => {
   };
 
   const handleSubscribed = () => {
-    navigate("/subscribed");
-
-  }
+    if(!user.userData.isAuth) {
+      navigate("/login");
+    } else {
+      navigate("/subscribed");
+    }
+  };
 
   return (
     <>
