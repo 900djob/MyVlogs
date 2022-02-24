@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Form, Input, Button, Checkbox, Typography } from "antd";
+import { Form, Input, Button, Checkbox, Typography, message } from "antd";
 import styles from "./LoginPage.module.css";
 import "antd/dist/antd.min.css";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
@@ -60,6 +60,7 @@ const LoginPage = (props) => {
                 } else {
                   localStorage.removeItem("rememberMe");
                 }
+                message.success("로그인에 성공했습니다.")
                 navigate("/");
               } else {
                 setFormErrorMessage("이메일 혹은 비밀번호를 다시 확인하세요.");

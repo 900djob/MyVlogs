@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { registerUser } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, message } from "antd";
 import "antd/dist/antd.css";
 import styles from "./RegisterPage.module.css";
 import Auth from "../../../hoc/auth";
@@ -68,6 +68,7 @@ const RegisterPage = (props) => {
 
           dispatch(registerUser(body)).then((res) => {
             if (res.payload.success) {
+              message.success("회원가입에 성공했습니다.")
               navigate("/login");
             } else {
               alert("회원가입에 실패했습니다.");
